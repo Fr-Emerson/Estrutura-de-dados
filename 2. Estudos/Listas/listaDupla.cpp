@@ -40,14 +40,33 @@ void insert(cel *head, lista *novo_no, bool ordenar)
             {
                 cpy = cpy->prox;
             }
-            if (cpy->ant = NULL)
+            if (cpy == NULL)
             {
-                head->inicio = novo_no;
+                lista* ultimo = head->inicio;
+                while (ultimo->prox != NULL)
+                {
+                    ultimo = ultimo->prox;
+                }
+                ultimo->prox = novo_no;
+                novo_no->ant = ultimo;
+                novo_no->prox = NULL;
+                novo_no->pos = ultimo->pos+1;
+                
+
             }
             else{
-                cpy->ant->prox = novo_no;
                 novo_no->prox = cpy;
+                novo_no->ant = cpy->ant;
+
+                if (cpy->ant != NULL)cpy->ant->prox = novo_no;
+                else head->inicio = novo_no;
+
+                cpy->ant = novo_no;
+
+                novo_no->pos = (novo_no->ant)? novo_no->ant->pos+1:0;
+                
             }
+            
         }
         else{
         while (cpy->prox != NULL)
@@ -66,7 +85,7 @@ lista *search_alt(lista *head, int val)
 {
     if (head->val == val) return head;
     if (head == NULL) return NULL;
-    return search_alt(head, val);
+    return search_alt(head->prox, val);
 }
 
 lista *search(cel *head, int pos)

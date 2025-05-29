@@ -38,7 +38,7 @@ aluno* cria(){
     return al;
 }
 
-void insert(Lista* lista, aluno* aluno){
+void insert_fim(Lista* lista, aluno* aluno){
     elemento *el_novo = new elemento;
     el_novo->a = aluno;
     if (lista->tamanho == 0)
@@ -50,7 +50,6 @@ void insert(Lista* lista, aluno* aluno){
         lista->fim->prox = el_novo;
         el_novo->ant = lista->fim;
         lista->fim = el_novo;
-        // el_novo->prox = NULL;
     } 
     lista->tamanho++;
 }
@@ -69,7 +68,6 @@ void insert_inicio(Lista* lista, aluno* aluno){
     lista->tamanho++;
 }
 elemento* busca_ant(elemento *e){
-    
     if (e->ant)
     {
         return e->ant;
@@ -87,18 +85,17 @@ void imprimir(Lista* l){
         aux = aux->prox;
     }
     printf("NULL\n");
-    
 }
 int main(int argc, char *const _argv[]){
     system("chcp 65001");
     system("cls");
-    Lista *lista = (Lista*)(calloc(1,sizeof(Lista)));
+    Lista *lista = new Lista; 
     if (!lista)
     {
         printf("Erro ao alocar memória!\n");
         exit(1);
     }
-    insert(lista, cria());
+    insert_fim(lista, cria());
     imprimir(lista);
 
     return 0;
