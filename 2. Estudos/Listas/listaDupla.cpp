@@ -23,7 +23,8 @@ lista *add()
     scanf("%d", &(novo->val));
     return novo;
 }
-void insert(cel *head, lista *novo_no)
+
+void insert(cel *head, lista *novo_no, bool ordenar)
 {
     if (head->inicio == NULL)
     {
@@ -33,13 +34,31 @@ void insert(cel *head, lista *novo_no)
     else
     {
         lista *cpy = head->inicio;
+        if (ordenar)
+        {
+            while (cpy->prox != NULL && novo_no->val >= cpy->val)
+            {
+                cpy = cpy->prox;
+            }
+            if (cpy->ant = NULL)
+            {
+                head->inicio = novo_no;
+            }
+            else{
+                cpy->ant->prox = novo_no;
+                novo_no->prox = cpy;
+            }
+        }
+        else{
         while (cpy->prox != NULL)
         {
             cpy = cpy->prox;
         }
-        cpy->prox = novo_no;
-        novo_no->ant = cpy;
-        novo_no->pos = cpy->pos + 1;
+            cpy->prox = novo_no;
+            novo_no->ant = cpy;
+            novo_no->pos = cpy->pos + 1;
+        }
+        
     }
     head->tamanho++;
 }
@@ -251,7 +270,7 @@ int menu()
     printf("4 - Deletar;\n");
     printf("5 - Resetar;\n");
     printf("6 - Trocar;\n");
-    printf("7 - Ordenar;\n");
+    printf("7 - Adicionar ordenado;\n");
     printf("8 - Max e Min;\n");
     printf("0 - sair;\n");
     int esc;
@@ -276,8 +295,9 @@ int main(int argc, char *const _argv[])
         switch (esc)
         {
         case 1:
-            insert(head, add());
+            insert(head, add(),false);
             printf("Adicionado com sucesso!\n");
+            atualizar_posicoes(head);
             break;
         case 2:
         {
@@ -315,17 +335,11 @@ int main(int argc, char *const _argv[])
             printf("Valores trocados com sucesso!\n");
             atualizar_posicoes(head);
             break;
-        case 7:{
-            int tam;
-            printf("Digite a quantidade de valores: ");
-            scanf("%d",&tam);
-            if (tam < 0)
-            {
-                /* code */
-            }
-            
+        case 7:
+            insert(head, add(),true);
+            printf("Adicionado com sucesso!\n");
+            atualizar_posicoes(head);
             break;
-            }
         case 8:{
             int max= 0, min= 0;
             max_min(head,&max,&min);
