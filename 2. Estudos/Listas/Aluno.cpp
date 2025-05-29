@@ -12,7 +12,7 @@ typedef struct{
 typedef struct elem{
     aluno *a = NULL;
     struct elem* prox = NULL;
-    // struct elem* ant = NULL;
+    struct elem* ant = NULL;
 } elemento;
 
 typedef struct l{
@@ -48,7 +48,9 @@ void insert(Lista* lista, aluno* aluno){
     }
     else{
         lista->fim->prox = el_novo;
+        el_novo->ant = lista->fim;
         lista->fim = el_novo;
+        // el_novo->prox = NULL;
     } 
     lista->tamanho++;
 }
@@ -66,19 +68,16 @@ void insert_inicio(Lista* lista, aluno* aluno){
     }
     lista->tamanho++;
 }
-elemento* busca_ant(Lista *lista, elemento *e){
-    if ((lista->tamanho==0) || (e = lista->inicio))
+elemento* busca_ant(elemento *e){
+    
+    if (e->ant)
     {
-        return NULL;
+        return e->ant;
     }
-    elemento* aux = lista->inicio;
-    while (aux != NULL)
-    {
-        if (aux->prox == e)return aux;
-        aux = aux->prox;
+    else{
+        return NULL;    
     }
-
-    return NULL;
+    
 }
 void imprimir(Lista* l){
     elemento* aux = l->inicio;
@@ -94,11 +93,11 @@ int main(int argc, char *const _argv[]){
     system("chcp 65001");
     system("cls");
     Lista *lista = (Lista*)(calloc(1,sizeof(Lista)));
-    // if (!lista)
-    // {
-    //     printf("Erro ao alocar memória!\n");
-    //     exit(1);
-    // }
+    if (!lista)
+    {
+        printf("Erro ao alocar memória!\n");
+        exit(1);
+    }
     insert(lista, cria());
     imprimir(lista);
 
