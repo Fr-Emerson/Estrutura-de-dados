@@ -3,6 +3,8 @@
 #include<time.h>
 #include<string.h>
 
+
+
 typedef struct{
     char nome[30];
     char matricula[10];
@@ -92,10 +94,12 @@ void trocar_adj(Lista* head, elemento* e1, elemento* e2){
     {
         e1->prox = e2->prox;
         if (e2->prox) e2->prox->ant = e1;
+        else head->fim = e1;
 
         e2->ant = e1->ant;
         if (e1->ant) e1->ant->prox = e2;
         else head->inicio = e2;
+
 
         e2->prox = e1;
         e1->ant = e2;
@@ -109,10 +113,12 @@ void trocar_n_adj(Lista* head, elemento* e1, elemento *e2){
         if (e1->ant) e1->ant->prox = e2;
         else head->inicio = e2;
         if(e1->prox) e1->prox->ant = e2;
+        else head->fim = e2;
 
         if (e2->ant) e2->ant->prox = e1;
         else head->inicio = e1;
         if(e2->prox) e2->prox->ant = e1;
+        else head->fim = e1;
 
         elemento* aux = new elemento;
 
@@ -140,6 +146,23 @@ void trocar(Lista* head,elemento *e1, elemento *e2){
         }
     }
 }
+elemento* search(Lista* head, float nota){
+    if (head->inicio == NULL)
+    {
+        printf("Lista vazia!\n");
+        return NULL;
+    }
+    elemento* cpy = head->inicio;
+    while (cpy != NULL)
+    {
+        if (cpy->a->nota == nota)
+        {
+            return cpy;
+        }
+        cpy = cpy->prox;
+    }
+    return NULL;
+}
 int main(int argc, char *const _argv[]){
     system("chcp 65001");
     system("cls");
@@ -153,7 +176,10 @@ int main(int argc, char *const _argv[]){
     insert_inicio(lista, cria());
     insert_inicio(lista, cria());
     imprimir(lista);
-    
+    trocar(lista, search(lista, 1), search(lista, 2));
+    printf("Após a troca:\n");
+    imprimir(lista);
+
 
     return 0;
 }
