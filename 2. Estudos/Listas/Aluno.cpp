@@ -86,7 +86,60 @@ void imprimir(Lista* l){
     }
     printf("NULL\n");
 }
+void trocar_adj(Lista* head, elemento* e1, elemento* e2){
 
+    if (e1->prox == e2)
+    {
+        e1->prox = e2->prox;
+        if (e2->prox) e2->prox->ant = e1;
+
+        e2->ant = e1->ant;
+        if (e1->ant) e1->ant->prox = e2;
+        else head->inicio = e2;
+
+        e2->prox = e1;
+        e1->ant = e2;
+        
+    }else{
+        trocar_adj(head,e2,e1);
+    }
+}
+
+void trocar_n_adj(Lista* head, elemento* e1, elemento *e2){
+        if (e1->ant) e1->ant->prox = e2;
+        else head->inicio = e2;
+        if(e1->prox) e1->prox->ant = e2;
+
+        if (e2->ant) e2->ant->prox = e1;
+        else head->inicio = e1;
+        if(e2->prox) e2->prox->ant = e1;
+
+        elemento* aux = new elemento;
+
+        aux->prox = e1->prox;
+        aux->ant = e1->ant;
+
+        e1->prox = e2->prox;
+        e1->ant = e2->ant;
+
+        e2->prox = aux->prox;
+        e2->ant = aux->ant;
+}
+void trocar(Lista* head,elemento *e1, elemento *e2){
+    if (!e1 || !e2 || e1 == e2)
+    {
+        return;
+    }
+    else{
+        if (e1->prox == e2 || e2->prox == e1)
+        {
+            trocar_adj(head, e1, e2);
+        }
+        else{
+            trocar_n_adj(head, e1,e2);
+        }
+    }
+}
 int main(int argc, char *const _argv[]){
     system("chcp 65001");
     system("cls");
