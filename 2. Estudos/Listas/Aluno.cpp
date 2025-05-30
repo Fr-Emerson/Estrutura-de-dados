@@ -75,8 +75,8 @@ elemento* busca_ant(elemento *e){
     else{
         return NULL;    
     }
-    
 }
+
 void imprimir(Lista* l){
     elemento* aux = l->inicio;
     while (aux != NULL)
@@ -86,6 +86,7 @@ void imprimir(Lista* l){
     }
     printf("NULL\n");
 }
+
 int main(int argc, char *const _argv[]){
     system("chcp 65001");
     system("cls");
@@ -96,7 +97,10 @@ int main(int argc, char *const _argv[]){
         exit(1);
     }
     insert_fim(lista, cria());
+    insert_inicio(lista, cria());
+    insert_inicio(lista, cria());
     imprimir(lista);
+    
 
     return 0;
 }
