@@ -120,16 +120,15 @@ void trocar_n_adj(Lista* head, elemento* e1, elemento *e2){
         if(e2->prox) e2->prox->ant = e1;
         else head->fim = e1;
 
-        elemento* aux = new elemento;
-
-        aux->prox = e1->prox;
-        aux->ant = e1->ant;
+        elemento* aux_prox =e1->prox;
+        elemento* aux_ant =e1->ant;
+        
 
         e1->prox = e2->prox;
         e1->ant = e2->ant;
 
-        e2->prox = aux->prox;
-        e2->ant = aux->ant;
+        e2->prox = aux_prox;
+        e2->ant = aux_ant;
 }
 void trocar(Lista* head,elemento *e1, elemento *e2){
     if (!e1 || !e2 || e1 == e2)
