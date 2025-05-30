@@ -58,7 +58,7 @@ void insert_fim(Lista* lista, aluno* aluno){
 void insert_inicio(Lista* lista, aluno* aluno){
     elemento *el_novo = new elemento;
     el_novo->a = aluno;
-    if (lista->tamanho = 0)
+    if (lista->tamanho == 0)
     {
         lista->inicio = el_novo;
         lista->fim = el_novo;
