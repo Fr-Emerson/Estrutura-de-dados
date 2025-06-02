@@ -18,7 +18,7 @@ struct cel
 typedef struct cel cel;
 lista *add()
 {
-    lista *novo = (lista *)(calloc(1, sizeof(lista)));
+    lista *novo = new lista;
     printf("Digite um valor: ");
     scanf("%d", &(novo->val));
     return novo;
@@ -305,7 +305,7 @@ int main(int argc, char *const _argv[])
     system("chcp 65001");
     system("cls");
     int esc = 0;
-    cel *head = (cel *)(calloc(1, sizeof(cel)));
+    cel *head = new cel;
     do
     {
         system("pause");
