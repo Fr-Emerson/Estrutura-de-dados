@@ -65,6 +65,7 @@ void insert_inicio(Lista* lista, aluno* aluno){
     }
     else{
         el_novo->prox = lista->inicio;
+        lista->inicio->ant = el_novo;
         lista->inicio = el_novo;
     }
     lista->tamanho++;
@@ -88,17 +89,17 @@ void imprimir(Lista* l){
     }
     printf("NULL\n");
 }
-void trocar_adj(Lista* head, elemento* e1, elemento* e2){
+void trocar_adj(Lista** head, elemento* e1, elemento* e2){
 
     if (e1->prox == e2)
     {
         e1->prox = e2->prox;
         if (e2->prox) e2->prox->ant = e1;
-        else head->fim = e1;
+        else (*head)->fim = e1;
 
         e2->ant = e1->ant;
         if (e1->ant) e1->ant->prox = e2;
-        else head->inicio = e2;
+        else (*head)->inicio = e2;
 
 
         e2->prox = e1;
@@ -109,16 +110,16 @@ void trocar_adj(Lista* head, elemento* e1, elemento* e2){
     }
 }
 
-void trocar_n_adj(Lista* head, elemento* e1, elemento *e2){
+void trocar_n_adj(Lista** head, elemento* e1, elemento *e2){
         if (e1->ant) e1->ant->prox = e2;
-        else head->inicio = e2;
+        else (*head)->inicio = e2;
         if(e1->prox) e1->prox->ant = e2;
-        else head->fim = e2;
+        else (*head)->fim = e2;
 
         if (e2->ant) e2->ant->prox = e1;
-        else head->inicio = e1;
+        else (*head)->inicio = e1;
         if(e2->prox) e2->prox->ant = e1;
-        else head->fim = e1;
+        else (*head)->fim = e1;
 
         elemento* aux_prox =e1->prox;
         elemento* aux_ant =e1->ant;
@@ -130,7 +131,7 @@ void trocar_n_adj(Lista* head, elemento* e1, elemento *e2){
         e2->prox = aux_prox;
         e2->ant = aux_ant;
 }
-void trocar(Lista* head,elemento *e1, elemento *e2){
+void trocar(Lista** head,elemento *e1, elemento *e2){
     if (!e1 || !e2 || e1 == e2)
     {
         return;
@@ -175,7 +176,8 @@ int main(int argc, char *const _argv[]){
     insert_inicio(lista, cria());
     insert_inicio(lista, cria());
     imprimir(lista);
-    trocar(lista, search(lista, 1), search(lista, 2));
+    trocar(&lista, search(lista, 1), search(lista, 2));
+    
     printf("Após a troca:\n");
     imprimir(lista);
 
