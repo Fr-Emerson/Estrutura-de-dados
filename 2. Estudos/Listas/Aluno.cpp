@@ -3,8 +3,6 @@
 #include<time.h>
 #include<string.h>
 
-
-
 typedef struct{
     char nome[30];
     char matricula[10];
@@ -26,9 +24,9 @@ typedef struct l{
 aluno* cria(){
     aluno* al = (aluno*)(calloc(1,sizeof(aluno)));
     printf("Digite o nome do aluno: ");
-    scanf("%s",al->nome);
+    scanf("%29s",al->nome);
     printf("Digite a matricula do aluno: ");
-    scanf("%s",al->matricula);
+    scanf("%9s",al->matricula);
     printf("Digite a nota do aluno: ");
     scanf("%f",&al->nota);
     if (al->nota < 0 || al->nota > 10)
@@ -172,14 +170,8 @@ int main(int argc, char *const _argv[]){
         printf("Erro ao alocar memória!\n");
         exit(1);
     }
-    insert_fim(lista, cria());
-    insert_inicio(lista, cria());
-    insert_inicio(lista, cria());
-    imprimir(lista);
-    trocar(&lista, search(lista, 1), search(lista, 2));
     
-    printf("Após a troca:\n");
-    imprimir(lista);
+    
 
 
     return 0;
