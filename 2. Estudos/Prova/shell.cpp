@@ -19,6 +19,7 @@ void shell_sort(int *vet, int tam) {
             }
             vet[j] = key;
         }
+        printf("");
         gap /= 2;
     }
 }
